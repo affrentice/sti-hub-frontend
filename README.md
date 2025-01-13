@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains a frontend monorepo for the `sti-hub-frontend`, which consists of frontend applications located under the `src/` directory and an `infra/` directory for infrastructure-related components. The architecture is designed to facilitate autonomous development, deployment, and management of each service, allowing for rapid innovation and iteration.
+This repository contains a frontend monorepo for the `sti-hub-frontend`, which consists of frontend applications located under the `src/` directory and an `infra/` directory for infrastructure-related components. The architecture is designed to facilitate autonomous development, deployment, and management of each application, allowing for rapid innovation and iteration.
 
 
 ## Project Structure
