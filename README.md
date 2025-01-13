@@ -21,15 +21,6 @@ The `infra/` directory contains all infrastructure-related resources necessary f
 
 ## Getting Started
 
-### Prerequisites
-
-Before you begin, ensure you have the following installed:
-```bash
-- Docker
-- Docker Compose
-- Node.js / Python / Java (depending on the microservice technology stack)
-```
-
 ### Installation
 
 1. Clone the repository:
