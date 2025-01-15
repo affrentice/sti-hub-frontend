@@ -8,7 +8,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 
 // Type Imports
 
-import type { getDictionary } from '@/utils/getDictionary'
 import type { VerticalMenuContextProps } from '@menu/components/vertical-menu/Menu'
 
 // Component Imports
@@ -29,6 +28,8 @@ import StyledVerticalNavExpandIcon from '@menu/styles/vertical/StyledVerticalNav
 // Style Imports
 import menuItemStyles from '@core/styles/vertical/menuItemStyles'
 import menuSectionStyles from '@core/styles/vertical/menuSectionStyles'
+
+import type { getDictionary } from '@/utils/getDictionary'
 
 type RenderExpandIconProps = {
   open?: boolean
@@ -104,15 +105,34 @@ const VerticalMenu = ({ dictionary, scrollMenu }: Props) => {
           <MenuItem href={`/${locale}/apps/kanban`} icon={<i className='ri-drag-drop-line' />}>
             {dictionary['navigation'].kanban}
           </MenuItem>
+          <MenuItem href={`/${locale}/apps/matchmaking`} icon={<i className='ri-shake-hands-line' />}>
+            {dictionary['navigation'].matchMaking}
+          </MenuItem>
         </MenuSection>
         <MenuSection label={dictionary['navigation'].pages}>
-          <MenuItem href={`/${locale}/pages/user-profile`}>{dictionary['navigation'].userProfile}</MenuItem>
-          <MenuItem href={`/${locale}/pages/account-settings`}>{dictionary['navigation'].accountSettings}</MenuItem>
-          <MenuItem href={`/${locale}/pages/faq`}>{dictionary['navigation'].faq}</MenuItem>
+          <MenuItem href={`/${locale}/pages/gov-services`} icon={<i className='ri-government-line' />}>
+            {dictionary['navigation'].govServices}
+          </MenuItem>
+          <MenuItem href={`/${locale}/pages/resources`} icon={<i className='ri-folder-info-line' />}>
+            {dictionary['navigation'].resources}
+          </MenuItem>
+          <MenuItem href={`/${locale}/pages/faq`} icon={<i className='ri-question-line' />}>
+            {dictionary['navigation'].faq}
+          </MenuItem>
         </MenuSection>
-        <MenuSection label={dictionary['navigation'].admin}>
-          <MenuItem href={`/${locale}/apps/user/list`}>{dictionary['navigation'].userList}</MenuItem>
+        <MenuSection label={dictionary['navigation'].account}>
+          <MenuItem href={`/${locale}/pages/user-profile`} icon={<i className='ri-user-line' />}>
+            {dictionary['navigation'].userProfile}
+          </MenuItem>
+          <MenuItem href={`/${locale}/pages/account-settings`} icon={<i className='ri-settings-line' />}>
+            {dictionary['navigation'].accountSettings}
+          </MenuItem>
         </MenuSection>
+        {/* <MenuSection label={dictionary['navigation'].admin}>
+          <MenuItem href={`/${locale}/apps/user/list`} icon={<i className='ri-team-line' />}>
+            {dictionary['navigation'].userList}
+          </MenuItem>
+        </MenuSection> */}
       </Menu>
       {/* <Menu
         popoutMenuOffset={{ mainAxis: 10 }}

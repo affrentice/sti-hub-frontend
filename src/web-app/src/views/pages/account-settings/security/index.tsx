@@ -3,9 +3,8 @@ import Grid from '@mui/material/Grid2'
 
 // Component Imports
 import ChangePasswordCard from './ChangePasswordCard'
-import TwoFactorAuthenticationCard from './TwoFactorAuthenticationCard'
-import CreateApiKey from './CreateApiKey'
-import ApiKeyList from './ApiKeyList'
+
+// import TwoFactorAuthenticationCard from './TwoFactorAuthenticationCard'
 import RecentDevicesTable from './RecentDevicesTable'
 
 const Security = () => {
@@ -14,15 +13,9 @@ const Security = () => {
       <Grid size={{ xs: 12 }}>
         <ChangePasswordCard />
       </Grid>
-      <Grid size={{ xs: 12 }}>
+      {/* <Grid size={{ xs: 12 }}>
         <TwoFactorAuthenticationCard />
-      </Grid>
-      <Grid size={{ xs: 12 }}>
-        <CreateApiKey />
-      </Grid>
-      <Grid size={{ xs: 12 }}>
-        <ApiKeyList />
-      </Grid>
+      </Grid> */}
       <Grid size={{ xs: 12 }}>
         <RecentDevicesTable />
       </Grid>

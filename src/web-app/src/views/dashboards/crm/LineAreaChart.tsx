@@ -1,43 +1,80 @@
 'use client'
 
-// Next Imports
 import dynamic from 'next/dynamic'
 
-//MUI Imports
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
+import { Card, CardContent, Box, CardHeader } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-
-// Third-party Imports
 import type { ApexOptions } from 'apexcharts'
 
-// Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
-// Vars
 const series = [
   {
-    name: 'Subscribers',
-    data: [28, 40, 36, 52, 38, 60]
+    name: 'Messages',
+    data: [30, 40, 35, 50, 49, 60, 70]
+  },
+  {
+    name: 'Connections',
+    data: [20, 35, 40, 45, 40, 50, 60]
   }
 ]
 
-const LineAreaChart = () => {
-  // Hooks
+const EngagementMetricsChart = () => {
   const theme = useTheme()
 
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,
-      toolbar: { show: false }
+      toolbar: { show: false },
+      animations: {
+        enabled: true,
+        dynamicAnimation: {
+          enabled: true,
+          speed: 800
+        }
+      }
     },
-    tooltip: { enabled: false },
-    dataLabels: { enabled: false },
     stroke: {
       width: 3,
       curve: 'smooth',
       lineCap: 'round'
+    },
+    colors: [theme.palette.primary.main, theme.palette.success.main],
+    markers: {
+      size: 6,
+      shape: 'circle'
+    },
+    xaxis: {
+      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      labels: {
+        style: {
+          colors: theme.palette.text.secondary,
+          fontSize: '14px',
+          fontWeight: '500'
+        }
+      },
+      axisBorder: { show: false },
+      axisTicks: { show: false }
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: theme.palette.text.secondary,
+          fontSize: '14px',
+          fontWeight: '500'
+        }
+      }
+    },
+    legend: {
+      position: 'bottom',
+      horizontalAlign: 'center',
+      labels: {
+        colors: theme.palette.text.primary,
+        useSeriesColors: false
+      },
+      markers: {
+        size: 8
+      }
     },
     grid: {
       show: false,
@@ -48,63 +85,40 @@ const LineAreaChart = () => {
         bottom: -15
       }
     },
+    tooltip: {
+      theme: 'light'
+    },
+    dataLabels: {
+      enabled: false
+    },
     fill: {
       type: 'gradient',
       gradient: {
-        colorStops: [
-          [
-            {
-              offset: 0,
-              opacity: 0.3,
-              color: 'var(--mui-palette-success-main)'
-            },
-            {
-              offset: 100,
-              opacity: 0.1,
-              color: 'var(--mui-palette-background-paper)'
-            }
-          ]
-        ]
+        shade: 'dark',
+        type: 'horizontal',
+        shadeIntensity: 0.5,
+        gradientToColors: [theme.palette.primary.light, theme.palette.success.light],
+        inverseColors: true,
+        opacityFrom: 0.3,
+        opacityTo: 0.1,
+        stops: [0, 50, 100]
       }
-    },
-    theme: {
-      monochrome: {
-        enabled: true,
-        shadeTo: 'light',
-        shadeIntensity: 1,
-        color: theme.palette.success.main
-      }
-    },
-    xaxis: {
-      type: 'numeric',
-      labels: { show: false },
-      axisTicks: { show: false },
-      axisBorder: { show: false }
-    },
-    yaxis: { show: false },
-    responsive: [
-      {
-        breakpoint: 600,
-        options: {
-          chart: {
-            height: 90
-          }
-        }
-      }
-    ]
+    }
   }
 
   return (
-    <Card>
+    <Card sx={{ p: 2 }}>
+      <CardHeader
+        title='Engagement Metrics'
+        sx={{ textAlign: 'left', fontWeight: 'bold', color: theme.palette.primary.main, mb: 1 }}
+      />
       <CardContent>
-        <Typography variant='h4'>42.5k</Typography>
-        <AppReactApexCharts type='area' height={100} width='100%' options={options} series={series} />
-        <Typography color='text.primary' className='font-medium text-center'>
-          Total Growth
-        </Typography>
+        <Box>
+          <AppReactApexCharts type='area' height={300} width='100%' options={options} series={series} />
+        </Box>
       </CardContent>
     </Card>
   )
 }
 
-export default LineAreaChart
+export default EngagementMetricsChart

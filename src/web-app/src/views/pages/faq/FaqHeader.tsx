@@ -1,55 +1,70 @@
-// MUI Imports
-import Card from '@mui/material/Card'
+'use client'
+
 import { styled } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent'
-import InputAdornment from '@mui/material/InputAdornment'
-import MuiTextField from '@mui/material/TextField'
+import { Card, CardContent, InputAdornment, TextField as MuiTextField, Typography, useTheme } from '@mui/material'
 
-// Third-party Imports
-import classnames from 'classnames'
-
-// Styles imports
-import styles from './styles.module.css'
-
-// Styled TextField component
-const TextField = styled(MuiTextField)({
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: 'var(--mui-palette-background-paper)'
-  }
-})
-
-type Props = {
+interface FaqHeaderProps {
   searchValue: string
   setSearchValue: (value: string) => void
 }
 
-const FaqHeader = ({ searchValue, setSearchValue }: Props) => {
+const StyledCard = styled(Card)(({ theme }) => ({
+  marginBottom: theme.spacing(8),
+  overflow: 'hidden',
+  background: `linear-gradient(135deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main}40 100%)`,
+  position: 'relative'
+}))
+
+const StyledTextField = styled(MuiTextField)(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    backgroundColor: theme.palette.background.paper
+  }
+}))
+
+const FaqHeader = ({ searchValue, setSearchValue }: FaqHeaderProps) => {
+  const theme = useTheme()
+
   return (
-    <Card className={classnames('shadow-none bg-transparent bg-cover', styles.bgImage)} elevation={0}>
-      <CardContent className='flex flex-col items-center is-full text-center !pbs-[4.5625rem] !pbe-[5.9375rem] pli-5'>
-        <Typography variant='h4' color='primary.main' className='mbe-2.5'>
+    <StyledCard>
+      <CardContent
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%',
+          textAlign: 'center',
+          paddingTop: '4.5625rem',
+          paddingBottom: '5.9375rem',
+          paddingLeft: theme.spacing(5),
+          paddingRight: theme.spacing(5)
+        }}
+      >
+        <Typography variant='h4' color='primary.main' className='text-white' sx={{ marginBottom: 2.5 }}>
           Hello, how can we help?
         </Typography>
-        <Typography className='mbe-6'>or choose a category to quickly find the help you need</Typography>
-        <TextField
-          className='is-full sm:max-is-[55%] md:max-is-[600px]'
+        <Typography sx={{ marginBottom: 6 }} className='text-white'>
+          or choose a category to quickly find the help you need
+        </Typography>
+        <StyledTextField
+          fullWidth
           variant='outlined'
           placeholder='Ask a question...'
           value={searchValue}
           onChange={e => setSearchValue(e.target.value)}
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position='start'>
-                  <i className='ri-search-line' />
-                </InputAdornment>
-              )
-            }
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position='start'>
+                <i className='ri-search-line' />
+              </InputAdornment>
+            )
+          }}
+          sx={{
+            width: '100%',
+            maxWidth: { sm: '55%', md: '600px' }
           }}
         />
       </CardContent>
-    </Card>
+    </StyledCard>
   )
 }
 

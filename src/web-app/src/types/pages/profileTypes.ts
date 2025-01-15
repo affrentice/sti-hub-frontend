@@ -41,6 +41,8 @@ export type ProfileConnectionsType = {
   name: string
   avatar: string
   isFriend: boolean
+  designation: string
+  description: string
   connections: string
 }
 export type ProfileTeamsTechType = {

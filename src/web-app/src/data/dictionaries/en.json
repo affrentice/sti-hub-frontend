@@ -1,19 +1,23 @@
 {
-    "navigation": {
-        "home": "Home",
-        "about": "About",
-        "calendar": "Event Planner",
-        "email": "Mail (Correspondence)",
-        "chat": "Discussion Hub",
-        "kanban": "workflow management",
-        "faq": "FAQ",
-        "userProfile": "User Profile",
-        "pages": "Pages",
-        "settings": "Settings",
-        "apps": "Apps",
-        "accountSettings": "Account Settings",
-        "dashboard": "Dashboard",
-        "admin": "Admin Pages",
-        "userList": "User Management"
-    }
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "calendar": "Event Planner",
+    "email": "Mail (Correspondence)",
+    "chat": "Discussion Hub",
+    "kanban": "workflow management",
+    "faq": "FAQ",
+    "userProfile": "User Profile",
+    "pages": "Pages",
+    "settings": "Settings",
+    "apps": "Apps",
+    "accountSettings": "Account Settings",
+    "dashboard": "Dashboard",
+    "admin": "Admin Pages",
+    "userList": "User Management",
+    "matchMaking": "Match Making",
+    "govServices": "Government Services",
+    "resources": "Resources",
+    "account": "Account"
+  }
 }
