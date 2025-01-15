@@ -10,11 +10,17 @@ import { useParams } from 'next/navigation'
 // MUI Imports
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
+import TextareaAutosize from '@mui/material/TextareaAutosize'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
 
 // Third-party Imports
 import classnames from 'classnames'
@@ -34,9 +40,13 @@ import { useSettings } from '@core/hooks/useSettings'
 // Util Imports
 import { getLocalizedUrl } from '@/utils/i18n'
 
+const userRoles = ['Entrepreneur', 'Investor', 'BDS Provider']
+
 const RegisterV2 = ({ mode }: { mode: Mode }) => {
   // States
   const [isPasswordShown, setIsPasswordShown] = useState(false)
+  const [selectedRole, setSelectedRole] = useState('')
+  const [formData, setFormData] = useState({})
 
   // Vars
   const darkImg = '/images/pages/auth-v2-mask-dark.png'
@@ -59,7 +69,15 @@ const RegisterV2 = ({ mode }: { mode: Mode }) => {
     borderedDarkIllustration
   )
 
-  const handleClickShowPassword = () => setIsPasswordShown(show => !show)
+  const handleClickShowPassword = () => setIsPasswordShown(prev => !prev)
+
+  const handleRoleChange = (event: SelectChangeEvent<string>) => {
+    setSelectedRole(event.target.value)
+  }
+
+  const handleFormChange = (field: string, value: any) => {
+    setFormData({ ...formData, [field]: value })
+  }
 
   return (
     <div className='flex bs-full justify-center'>
@@ -91,58 +109,91 @@ const RegisterV2 = ({ mode }: { mode: Mode }) => {
         >
           <Logo />
         </Link>
-
         <div className='flex flex-col gap-5 is-full sm:is-auto md:is-full sm:max-is-[400px] md:max-is-[unset]'>
           <div>
             <Typography variant='h4'>Adventure starts here 🚀</Typography>
             <Typography className='mbe-1'>Make your app management easy and fun!</Typography>
           </div>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} className='flex flex-col gap-5'>
-            <TextField autoFocus fullWidth label='Username' />
-            <TextField fullWidth label='Email' />
+            <TextField
+              fullWidth
+              label='Username or Email'
+              placeholder='Enter your username or email'
+              onChange={e => handleFormChange('usernameOrEmail', e.target.value)}
+            />
             <TextField
               fullWidth
               label='Password'
               type={isPasswordShown ? 'text' : 'password'}
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position='end'>
-                      <IconButton
-                        size='small'
-                        edge='end'
-                        onClick={handleClickShowPassword}
-                        onMouseDown={e => e.preventDefault()}
-                      >
-                        <i className={isPasswordShown ? 'ri-eye-off-line' : 'ri-eye-line'} />
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton onClick={handleClickShowPassword}>
+                      <i className={isPasswordShown ? 'ri-eye-off-line' : 'ri-eye-line'} />
+                    </IconButton>
+                  </InputAdornment>
+                )
               }}
+              onChange={e => handleFormChange('password', e.target.value)}
             />
-            <div className='flex justify-between items-center gap-3'>
-              <FormControlLabel
-                control={<Checkbox />}
-                label={
-                  <>
-                    <span>I agree to </span>
-                    <Link className='text-primary' href='/' onClick={e => e.preventDefault()}>
-                      privacy policy & terms
-                    </Link>
-                  </>
-                }
+            <FormControl fullWidth>
+              <InputLabel>Role</InputLabel>
+              <Select label='Role' value={selectedRole} onChange={handleRoleChange}>
+                {userRoles.map(role => (
+                  <MenuItem key={role} value={role}>
+                    {role}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {selectedRole === 'Entrepreneur' && (
+              <TextField
+                fullWidth
+                label='Business Name'
+                placeholder='Enter your business name'
+                onChange={e => handleFormChange('businessName', e.target.value)}
               />
-            </div>
+            )}
+            {selectedRole === 'Investor' && (
+              <TextareaAutosize
+                minRows={3}
+                placeholder='Describe your investment focus'
+                className='border border-gray-300 rounded-md p-2'
+                style={{ width: '100%', padding: '10px' }}
+                onChange={e => handleFormChange('investmentFocus', e.target.value)}
+              />
+            )}
+            {selectedRole === 'BDS Provider' && (
+              <TextareaAutosize
+                minRows={3}
+                placeholder='List the services you offer'
+                className='border border-gray-300 rounded-md p-2'
+                style={{ width: '100%', padding: '10px' }}
+                onChange={e => handleFormChange('servicesOffered', e.target.value)}
+              />
+            )}
+
+            <FormControlLabel
+              control={<Checkbox />}
+              label={
+                <>
+                  I agree to the{' '}
+                  <Link href='/privacy-policy' className='text-primary'>
+                    privacy policy & terms
+                  </Link>
+                </>
+              }
+            />
             <Button fullWidth variant='contained' type='submit'>
               Sign Up
             </Button>
-            <div className='flex justify-center items-center flex-wrap gap-2'>
-              <Typography>Already have an account?</Typography>
-              <Typography component={Link} href={`/${locale}/login`} color='primary.main'>
+            <Typography>
+              Already have an account?{' '}
+              <Link href={`/${locale}/login`} className='text-primary'>
                 Sign in instead
-              </Typography>
-            </div>
+              </Link>
+            </Typography>
           </form>
         </div>
       </div>

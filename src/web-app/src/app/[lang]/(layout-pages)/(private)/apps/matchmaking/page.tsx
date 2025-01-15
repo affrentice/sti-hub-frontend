@@ -1,5 +1,7 @@
+import MatchmakingPage from '@/views/apps/matchmaking/matchinPage'
+
 const page = () => {
-  return <div>page</div>
+  return <MatchmakingPage />
 }
 
 export default page
